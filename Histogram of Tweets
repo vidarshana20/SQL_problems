@@ -1,0 +1,17 @@
+Finding frequency of social media tweets of each customer grouped and segmented into frequency sets- Histogram of tweets
+
+WITH user_tweet_counts AS (
+  SELECT 
+    user_id,
+    COUNT(tweet_id) AS tweet_count
+  FROM tweets
+  WHERE EXTRACT(YEAR FROM tweet_date) = 2024
+  GROUP BY user_id
+)
+
+SELECT 
+  tweet_count AS tweet_bucket,
+  COUNT(user_id) AS users_num
+FROM user_tweet_counts
+GROUP BY tweet_count
+ORDER BY tweet_count;
